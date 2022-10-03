@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+
+<body onload="bodyOnload()">
+  <!--
+Необязательное задание.
+
+Выполнить все задачи в теге script. Комментарии, в которых написаны задачи, не
+стирать, код с решением задачи пишем под комментарием.
+-->
+
+  <p class="super_element">Привет</p>
+
+  <img src="https://placeimg.com/50/50/animals" alt="">
+  <img src="https://placeimg.com/50/50/arch" alt="">
+  <img src="https://placeimg.com/50/50/nature" alt="">
+  <img src="https://placeimg.com/50/50/people" alt="">
+  <img src="https://placeimg.com/50/50/tech" alt="">
+  <img src="https://placeimg.com/50/50/tech/grayscale" alt="">
+  <img src="https://placeimg.com/50/50/tech/sepia" alt="">
+
+  <br>
+
+  <button>Кнопка</button>
+  <button class="super_element">Кнопка с классом btn</button>
+  <button>Кнопка</button>
+
+  <br>
+
+  <textarea></textarea>
+
+  <br>
+
+  <ul>
+    <li>
+      <button>Кнопка 1</button>
+    </li>
+    <li>
+      <button>Кнопка 2</button>
+    </li>
+    <li>
+      <button>Кнопка 3</button>
+    </li>
+    <li>
+      <button>Кнопка 4</button>
+    </li>
+  </ul>
+
+  <script>
+    "use strict";
+
+    /*
+    1. Необходимо вывести сообщение в консоль "все теги прогрузились", когда все
+    теги будут созданы браузером.
+    */
+    document.addEventListener("DOMContentLoaded", () => {
+      console.log("все теги прогрузились");
+    });
+
+
+    /*
+    2. Необходимо вывести сообщение в консоль "страница загрузилась", когда все
+    ресурсы страницы будут загружены.
+    */
+    function bodyOnload() {
+      console.log("страница загрузилась");
+    }
+
+
+    /*
+    3. При клике на какой-либо тег на странице в консоль должно выводиться
+    сообщение наподобие:
+    Класс "super_element" присутствует в элементе "div".
+    сообщение должно определять присутствует или отсутствует класс "super_element"
+    у элемента, а также выводить в нижнем регистре верный тег в данной строке, по
+    которому был совершен клик.
+    Необходимо использовать делегирование.
+    */
+    // const squareFourth = document.querySelector('.square4');
+
+    document.onclick = function (e) {
+      e = event || window.event;
+
+      if (e.target.className === 'super_element') {
+        console.log(`Класс "super_element" присутствует в элементе "${e.target.tagName.toLowerCase()}": ${e.target.outerHTML}`);
+      } else {
+        console.log(`Класс "super_element" отсутствует в элементе "${e.target.tagName.toLowerCase()}": ${e.target.outerHTML}`);
+      }
+    }
+
+
+    /*
+    4. Сделайте, чтобы при наведении на textarea в консоли появлялось сообщение:
+    "Вы навели на textarea."
+     */
+    const itemTextarea = document.getElementsByTagName('textarea')[0];    
+    itemTextarea.addEventListener('mouseover', function () {
+      console.log("Вы навели на textarea.");
+    });
+
+
+    /*
+    5. Необходимо повесить событие клика на тег ul. В обработчике события в
+    консоль необходимо выводить текст, который записан внутри элемента кнопки,
+    по которой был произведен клик.
+    Если клик был не по кнопке, то ничего выводить не нужно.
+    Необходимо использовать делегирование.
+     */
+    const itemUl = document.getElementsByTagName('ul')[0];
+    itemUl.addEventListener('click', function (e) {
+      e = event || window.event;
+
+      if (e.target.localName === 'button') {
+        console.log(`${e.target.innerHTML}`);      
+      }     
+    });
+
+
+    /*
+    6. Вопрос: Почему в console.log пишется сначала текст из 5 задания и только
+    потом выводится текст из 3 задания, если мы кликаем по кнопкам в ul?
+    Ответ необходимо написать здесь же, под этим комментарием, своими словами.
+    */
+    //
+    // Порядок обработки  в стандарте W3C  объединяет две модели: перехват 
+    // и всплытие в одну универсальну. При совершении действия, сначала событие
+    // перехватывается, пока не достигнет конечного элемента, затем всплывает. 
+    // 
+    // Если в качестве третьего параметра функции addEventListener передать
+    // значение true, то событие будет срабатывать на фазе захвата, 
+    // если false (по умолчанию) – то после окончания захвата, на фазе 
+    // всплытия (наш случай).
+    // 
+    // Порядок, называемый "всплывающим", характеризуется тем, что событие
+    // поднимается с самых "глубоких" элементов в представлении DOM, к самым 
+    // "верхним", как пузырек воздуха в воде.
+    
+
+    /*
+    7. С помощью JS необходимо изменить цвет заднего фона каждого второго тега li.
+     */
+    const itemsLi = document.getElementsByTagName('li');
+    for (let i = 0; i < itemsLi.length; i++) {
+    if(i % 2) {        
+      itemsLi[i].firstElementChild.style.backgroundColor = 'pink';
+      }      
+    }
+  </script>
+</body>
+
+</html>
